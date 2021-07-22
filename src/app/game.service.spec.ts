@@ -76,6 +76,10 @@ describe('GameService', () => {
     service.setLiveCell(2,2);
     service.setLiveCell(1,2);
 
+    displayGame();
+  });
+
+  function displayGame() {
     let currRow = service.minRow;
     while (currRow <= service.maxRow) {
       let row = "";
@@ -89,6 +93,6 @@ describe('GameService', () => {
       console.log(row)
       ++currRow;
     }
-  });
+  }
 
 });
