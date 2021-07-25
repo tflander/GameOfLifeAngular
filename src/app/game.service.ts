@@ -19,15 +19,19 @@ export class GameService {
   }
 
   setLiveCell(col: number, row: number) {
-    let colset = this.liveRows.get(row);
-    if(!colset)
-      colset = new Set<number>();
-    colset.add(col);
-    this.liveRows.set(row, colset);
+    this.setLiveCellInMap(col, row, this.liveRows)
     this.minRow = Math.min(row, this.minRow);
     this.maxRow = Math.max(row, this.maxRow);
     this.minCol = Math.min(col, this.minCol);
     this.maxCol = Math.max(col, this.maxCol);
+  }
+
+  setLiveCellInMap(col: number, row: number, rows: Map<number, Set<number>>) {
+    let colset = rows.get(row);
+    if(!colset)
+      colset = new Set<number>();
+    colset.add(col);
+    rows.set(row, colset);
   }
 
   neighborsFor(col: number, row: number) {
@@ -52,6 +56,22 @@ export class GameService {
     if(!colset)
       return false;
     return colset.has(col);
+  }
+
+  tick() {
+    let updatedLiveRows = new Map;
+    let currRow = this.minRow;
+    while (currRow <= this.maxRow) {
+      let rows = this.liveRows.get(currRow);
+      for (let col = this.minCol; col <= this.maxCol; ++col) {
+        if(this.neighborsFor(col, currRow) == 2) {
+          this.setLiveCellInMap(col, currRow, updatedLiveRows);
+        }
+      }
+      ++currRow;
+    }
+    this.liveRows = updatedLiveRows;
+    // TODO: adjust mins and max's
   }
 }
 

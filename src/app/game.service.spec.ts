@@ -68,15 +68,30 @@ describe('GameService', () => {
     expect(service.isLive(1,2)).toBeFalse();
     expect(service.isLive(2,1)).toBeFalse();
     expect(service.neighborsFor(0,0)).toEqual(3)
+    expect(service.neighborsFor(2,2)).toEqual(1)
+    expect(service.neighborsFor(3,3)).toEqual(0)
   });
 
-  it('display spike', () => {
+  it('kills isolated cells', () => {
     service.setLiveCell(0,0);
     service.setLiveCell(1,1);
-    service.setLiveCell(2,2);
-    service.setLiveCell(1,2);
+
+    service.tick();
+
+    expect(service.isLive(0,0)).toBeFalse();
+    expect(service.isLive(1,1)).toBeFalse();
+  });
+
+  it('allows live cells with two (or three neighbors) to survive', () => {
+    service.setLiveCell(0,0);
+    service.setLiveCell(1,0);
+    service.setLiveCell(2,0);
 
     displayGame();
+
+    service.tick();
+
+    expect(service.isLive(1,0)).toBeTrue();
   });
 
   function displayGame() {
