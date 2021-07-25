@@ -13,19 +13,7 @@ export class GameengineComponent implements OnInit {
   constructor(private gameService: GameService) { }
 
   showGrid() {
-    let currRow = this.gameService.minRow;
-    while (currRow <= this.gameService.maxRow) {
-      let row = "";
-      let rows = this.gameService.liveRows.get(currRow);
-      for (let col = this.gameService.minCol; col <= this.gameService.maxCol; ++col) {
-        if(rows && rows.has(col))
-          row += 'X'
-        else
-          row += '.'
-      }
-      this.rows.push(row);
-      ++currRow;
-    }
+    this.rows = this.gameService.grid.asRows();
   }
 
   ngOnInit(): void {
