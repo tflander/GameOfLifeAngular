@@ -72,11 +72,4 @@ describe('GameService', () => {
     expect(grid.neighborsFor(3,3)).toEqual(0)
   });
 
-  function displayGame() {
-    // let stringGrid = grid.asRows();
-    // stringGrid.forEach(function (row) {
-    //   console.log(row);
-    // });
-  }
-
 });

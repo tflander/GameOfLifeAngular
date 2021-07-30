@@ -13,13 +13,18 @@ export class GameService {
 
   tick() {
     let updatedLiveRows = new FlexiGrid();
-    let currRow = this.grid.minRow;
-    while (currRow <= this.grid.maxRow) {
-      for (let col = this.grid.minCol; col <= this.grid.maxCol; ++col) {
+    let currRow = this.grid.minRow - 1;
+    while (currRow <= this.grid.maxRow + 1) {
+      for (let col = this.grid.minCol - 1; col <= this.grid.maxCol + 1; ++col) {
         let neighborCount = this.grid.neighborsFor(col, currRow)
-        console.log("neighbors: " + neighborCount);
-        if(neighborCount == 2 || neighborCount == 3) {
-          updatedLiveRows.setLiveCell(col, currRow);
+        if (this.grid.isLive(col, currRow)) {
+          if (neighborCount == 2 || neighborCount == 3) {
+            updatedLiveRows.setLiveCell(col, currRow);
+          }
+        } else {
+          if (neighborCount == 3) {
+            updatedLiveRows.setLiveCell(col, currRow);
+          }
         }
       }
       ++currRow;
