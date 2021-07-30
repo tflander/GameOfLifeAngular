@@ -20,9 +20,22 @@ describe('GameService', () => {
     expect(service.grid.isLive(1,1)).toBeFalse();
   });
 
-  it('allows live cells with two (or three neighbors) to survive', () => {
+  it('allows live cells with two neighbors to survive', () => {
     service.setLiveCell(0,0);
     service.setLiveCell(1,0);
+    service.setLiveCell(2,0);
+
+    displayGame();
+
+    service.tick();
+
+    expect(service.grid.isLive(1,0)).toBeTrue();
+  });
+
+  it('allows live cells with three neighbors to survive', () => {
+    service.setLiveCell(0,0);
+    service.setLiveCell(1,0);
+    service.setLiveCell(1,1);
     service.setLiveCell(2,0);
 
     displayGame();

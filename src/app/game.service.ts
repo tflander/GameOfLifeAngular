@@ -16,7 +16,8 @@ export class GameService {
     let currRow = this.grid.minRow;
     while (currRow <= this.grid.maxRow) {
       for (let col = this.grid.minCol; col <= this.grid.maxCol; ++col) {
-        if(this.grid.neighborsFor(col, currRow) == 2) {
+        let neighborCount = this.grid.neighborsFor(col, currRow)
+        if(neighborCount == 2 || neighborCount == 3) {
           updatedLiveRows.setLiveCell(col, currRow);
         }
       }
