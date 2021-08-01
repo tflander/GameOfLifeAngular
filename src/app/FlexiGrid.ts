@@ -70,4 +70,15 @@ export class FlexiGrid {
     return stringGrid;
   }
 
+  rowCount() {
+    if(this.minRow > this.maxRow)
+      return 0;
+    return this.maxRow - this.minRow + 1;
+  }
+
+  columnCount() {
+    if(this.minRow > this.maxRow)
+      return 0;
+    return this.maxCol - this.minCol + 1;
+  }
 }

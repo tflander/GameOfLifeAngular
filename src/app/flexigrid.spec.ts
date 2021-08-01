@@ -72,4 +72,16 @@ describe('GameService', () => {
     expect(grid.neighborsFor(3,3)).toEqual(0)
   });
 
+  it('gives the row count', () => {
+    expect(grid.rowCount()).toBe(0);
+    grid.setLiveCell(1,1);
+    expect(grid.rowCount()).toBe(1);
+  });
+
+  it('gives the column count', () => {
+    expect(grid.columnCount()).toBe(0);
+    grid.setLiveCell(1,1);
+    expect(grid.columnCount()).toBe(1);
+  });
+
 });

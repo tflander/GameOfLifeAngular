@@ -2,6 +2,10 @@ import { TestBed } from '@angular/core/testing';
 
 import { GameService } from './game.service';
 
+function verifyGrid(expectedGrid: string[][]) {
+
+}
+
 describe('GameService', () => {
   let service: GameService;
 
@@ -11,10 +15,27 @@ describe('GameService', () => {
   });
 
   it('kills isolated cells', () => {
-    service.setLiveCell(0,0);
-    service.setLiveCell(1,1);
+
+    setGrid(
+      [
+        ['X','.'],
+        ['.','X']
+      ]
+    );
+
+    verifyGrid(
+      [
+        ['X','.'],
+        ['.','X']
+      ]
+    );
+
+    // TODO: make this fail due to different grid sizes
+    verifyGrid([]);
 
     service.tick();
+
+    // verifyGrid([]);
 
     expect(service.grid.isLive(0,0)).toBeFalse();
     expect(service.grid.isLive(1,1)).toBeFalse();
@@ -110,6 +131,30 @@ describe('GameService', () => {
     let stringGrid = service.grid.asRows();
     stringGrid.forEach(function (row) {
       console.log(row);
+    });
+  }
+
+  function setGrid(gridForSetup: string[][]) {
+    gridForSetup.forEach((row, rowNum) => {
+      row.forEach((col, colNum) => {
+        if (col === 'X') {
+          service.setLiveCell(colNum, rowNum);
+        }
+      });
+    });
+  }
+
+  function verifyGrid(expectedGrid: string[][]) {
+    console.log('expected rows: ', expectedGrid.length)
+    console.log('actual rows: ', service.grid.rowCount())
+    if(expectedGrid.length > 0) {
+      console.log(' columns: ', expectedGrid[0].length)
+      console.log(expectedGrid[0])
+    }
+    expectedGrid.forEach((row, rowNum) => {
+      row.forEach((col, colNum) => {
+        expect(service.grid.isLive(colNum, rowNum)).toBe(expectedGrid[rowNum][colNum] === 'X');
+      });
     });
   }
 
