@@ -31,14 +31,30 @@ describe('GameService', () => {
     expect(service.grid.isLive(1,1)).toBeFalse();
   });
 
+  it('allows re-init to an empty sized grid size', () => {
+    service.reInitEmpty(3, 2);
+
+    verifyGrid([
+      ['.', '.', '.'],
+      ['.', '.', '.']
+    ])
+  });
+
   it('allows live cells with two neighbors to survive', () => {
     service.setLiveCell(0,0);
     service.setLiveCell(1,0);
     service.setLiveCell(2,0);
 
+    setGrid(
+      [
+        ['X','X', 'X']
+      ]
+    );
+
     displayGame();
 
     service.tick();
+    displayGame();
 
     expect(service.grid.isLive(1,0)).toBeTrue();
   });
@@ -120,7 +136,7 @@ describe('GameService', () => {
   function displayGame() {
     let stringGrid = service.grid.asRows();
     stringGrid.forEach(function (row) {
-      console.log(row);
+      console.log(`|${row}|`);
     });
   }
 

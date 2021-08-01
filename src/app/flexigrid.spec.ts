@@ -14,11 +14,21 @@ describe('GameService', () => {
     expect(grid).toBeTruthy();
   });
 
-  it('creates the game', () => {
+  it('creates the grid', () => {
     expect(grid.minRow).toEqual(Number.MAX_SAFE_INTEGER)
     expect(grid.maxRow).toEqual(Number.MIN_SAFE_INTEGER);
     expect(grid.minCol).toEqual(Number.MAX_SAFE_INTEGER)
     expect(grid.maxCol).toEqual(Number.MIN_SAFE_INTEGER);
+    expect(grid.liveRows)
+  });
+
+  it('can create a grid of a pre-defined size', () => {
+    grid.init(2, 3);
+
+    expect(grid.minRow).toEqual(0)
+    expect(grid.maxRow).toEqual(2);
+    expect(grid.minCol).toEqual(0)
+    expect(grid.maxCol).toEqual(1);
     expect(grid.liveRows)
   });
 

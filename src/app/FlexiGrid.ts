@@ -81,4 +81,11 @@ export class FlexiGrid {
       return 0;
     return this.maxCol - this.minCol + 1;
   }
+
+  init(columns: number, rows: number) {
+    this.minCol = 0;
+    this.maxCol = columns - 1;
+    this.minRow = 0;
+    this.maxRow = rows - 1;
+  }
 }

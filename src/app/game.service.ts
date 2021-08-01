@@ -36,5 +36,8 @@ export class GameService {
     this.grid.setLiveCell(col, row);
   }
 
+  reInitEmpty(columns: number, rows: number) {
+    this.grid.init(columns, rows);
+  }
 }
 
