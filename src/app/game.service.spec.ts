@@ -23,19 +23,9 @@ describe('GameService', () => {
       ]
     );
 
-    verifyGrid(
-      [
-        ['X','.'],
-        ['.','X']
-      ]
-    );
-
-    // TODO: make this fail due to different grid sizes
-    verifyGrid([]);
-
     service.tick();
 
-    // verifyGrid([]);
+    verifyGridIsEmpty();
 
     expect(service.grid.isLive(0,0)).toBeFalse();
     expect(service.grid.isLive(1,1)).toBeFalse();
@@ -144,18 +134,35 @@ describe('GameService', () => {
     });
   }
 
+  function verifyGridIsEmpty() {
+    verifyGrid([]);
+  }
+
   function verifyGrid(expectedGrid: string[][]) {
-    console.log('expected rows: ', expectedGrid.length)
-    console.log('actual rows: ', service.grid.rowCount())
+    verifyGridSize(expectedGrid);
     if(expectedGrid.length > 0) {
       console.log(' columns: ', expectedGrid[0].length)
       console.log(expectedGrid[0])
     }
     expectedGrid.forEach((row, rowNum) => {
       row.forEach((col, colNum) => {
-        expect(service.grid.isLive(colNum, rowNum)).toBe(expectedGrid[rowNum][colNum] === 'X');
+        expect(service.grid.isLive(colNum, rowNum))
+          .withContext(`Mismatch for column ${colNum}, Row ${rowNum}`)
+          .toBe(expectedGrid[rowNum][colNum] === 'X');
       });
     });
+  }
+
+  function verifyGridSize(expectedGrid: string[][]) {
+    expect(service.grid.rowCount())
+      .withContext(`grid has ${service.grid.rowCount()} rows, expected ${expectedGrid.length} rows`)
+      .toEqual(expectedGrid.length);
+
+    if(service.grid.rowCount() > 0) {
+      expect(service.grid.columnCount())
+        .withContext(`grid has ${service.grid.columnCount()} columns, expected ${expectedGrid[0].length} columns`)
+        .toEqual(expectedGrid[0].length);
+    }
   }
 
 });
