@@ -35,8 +35,8 @@ describe('GameService', () => {
     service.reInitEmpty(3, 2);
 
     verifyGrid([
-      ['.', '.', '.'],
-      ['.', '.', '.']
+      '...',
+      '...'
     ])
   });
 
@@ -148,11 +148,12 @@ describe('GameService', () => {
 
     verifyGrid(
       [
-        ['.', '.', '.', '.', '.'],
-        ['.', '.', 'X', '.', '.'],
-        ['.', '.', 'X', '.', '.'],
-        ['.', '.', 'X', '.', '.'],
-        ['.', '.', '.', '.', '.']
+        '.....',
+        '..X..',
+        '..X..',
+        '..X..',
+        '.....',
+
       ]);
 
   });
@@ -166,7 +167,7 @@ describe('GameService', () => {
 
   function setGrid(gridForSetup: string[]) {
     gridForSetup.forEach((row, rowNum) => {
-      for (var colNum = 0; colNum < row.length; colNum++) {
+      for (let colNum = 0; colNum < row.length; colNum++) {
         if (row[colNum] === 'X') {
           service.setLiveCell(colNum, rowNum);
         }
@@ -185,19 +186,20 @@ describe('GameService', () => {
     })
   }
 
-  function verifyGrid(expectedGrid: string[][]) {
+  function verifyGrid(expectedGrid: string[]) {
     verifyGridSize(expectedGrid);
 
     expectedGrid.forEach((row, rowNum) => {
-      row.forEach((col, colNum) => {
+
+      for (let colNum = 0; colNum < row.length; colNum++) {
         expect(service.grid.isLive(colNum, rowNum))
           .withContext(`Mismatch for column ${colNum}, Row ${rowNum}`)
           .toBe(expectedGrid[rowNum][colNum] === 'X');
-      });
+      }
     });
   }
 
-  function verifyGridSize(expectedGrid: string[][]) {
+  function verifyGridSize(expectedGrid: string[]) {
     expect(service.grid.rowCount())
       .withContext(`grid has ${service.grid.rowCount()} rows, expected ${expectedGrid.length} rows`)
       .toEqual(expectedGrid.length);
