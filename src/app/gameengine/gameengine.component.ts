@@ -27,14 +27,14 @@ export class GameengineComponent implements OnInit {
     this.gameService.setLiveCell(1,2);
 
     this.showGrid();
-    this.calculateTimeForTimer();
+    this.setTimerForGridUpdate();
   }
 
-  calculateTimeForTimer() {
+  setTimerForGridUpdate() {
     let expirationDate = new Date();
-    expirationDate.setTime(expirationDate.getTime() + 500); // 10 seconds from now.
+    expirationDate.setTime(expirationDate.getTime() + 500);
     let alertDate = new Date(expirationDate);
-    alertDate.setTime(alertDate.getTime() - 300); // 5 seconds before expiration
+    alertDate.setTime(alertDate.getTime() - 300);
     let timeDuration = (expirationDate.getTime() - alertDate.getTime());
     this._startTimer(timeDuration);
   }
@@ -45,11 +45,10 @@ export class GameengineComponent implements OnInit {
     }
 
     this.timerSubs = timer(timeDuration).subscribe((data) => {
-      // make the API call, and then calculate appropriate duartion and call startTimer() again
       of({token: Math.random()}).pipe(delay(200)).subscribe((apiData) => {
         this.gameService.tick();
         this.showGrid();
-        this.calculateTimeForTimer();
+        this.setTimerForGridUpdate();
       })
     })
   }
