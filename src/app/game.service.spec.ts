@@ -18,8 +18,8 @@ describe('GameService', () => {
 
     setGrid(
       [
-        ['X','.'],
-        ['.','X']
+        'X.',
+        '.X'
       ]
     );
 
@@ -47,7 +47,7 @@ describe('GameService', () => {
 
     setGrid(
       [
-        ['X','X', 'X']
+        'XXX'
       ]
     );
 
@@ -133,13 +133,14 @@ describe('GameService', () => {
 
   it('shows a blinker', () => {
     service.reInitEmpty(5, 5)
+
     setGrid(
       [
-        ['.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.'],
-        ['.', 'X', 'X', 'X', '.'],
-        ['.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.']
+        '.....',
+        '.....',
+        '.XXX.',
+        '.....',
+        '.....',
       ]);
 
     displayGame();
@@ -163,13 +164,13 @@ describe('GameService', () => {
     });
   }
 
-  function setGrid(gridForSetup: string[][]) {
+  function setGrid(gridForSetup: string[]) {
     gridForSetup.forEach((row, rowNum) => {
-      row.forEach((col, colNum) => {
-        if (col === 'X') {
+      for (var colNum = 0; colNum < row.length; colNum++) {
+        if (row[colNum] === 'X') {
           service.setLiveCell(colNum, rowNum);
         }
-      });
+      }
     });
   }
 
