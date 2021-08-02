@@ -158,6 +158,40 @@ describe('GameService', () => {
 
   });
 
+  it('expands the border for a blinker', () => {
+    service.reInitEmpty(5, 5)
+
+    setGrid(
+      [
+        '...',
+        'XXX',
+        '...',
+      ]);
+
+    service.tick();
+
+    verifyGrid(
+      [
+        '.X...',
+        '.X...',
+        '.X...',
+        '.....',
+        '.....'
+      ]);
+
+    service.tick();
+
+    verifyGrid(
+      [
+        '.....',
+        'XXX..',
+        '.....',
+        '.....',
+        '.....'
+      ]);
+
+  });
+
   function displayGame() {
     let stringGrid = service.grid.asRows();
     stringGrid.forEach(function (row) {
