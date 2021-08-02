@@ -13,6 +13,10 @@ export class GameService {
 
   tick() {
     let updatedLiveRows = new FlexiGrid();
+    updatedLiveRows.minRow = this.grid.minRow;
+    updatedLiveRows.maxRow = this.grid.maxRow;
+    updatedLiveRows.minCol = this.grid.minCol;
+    updatedLiveRows.maxCol = this.grid.maxCol;
     let currRow = this.grid.minRow - 1;
     while (currRow <= this.grid.maxRow + 1) {
       for (let col = this.grid.minCol - 1; col <= this.grid.maxCol + 1; ++col) {

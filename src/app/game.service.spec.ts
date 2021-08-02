@@ -126,11 +126,34 @@ describe('GameService', () => {
     service.setLiveCell(0,1);
     service.setLiveCell(2,2);
 
-    displayGame();
-
     service.tick();
 
     expect(service.grid.isLive(1,1)).toBeFalse();
+  });
+
+  it('shows a blinker', () => {
+    service.reInitEmpty(5, 5)
+    setGrid(
+      [
+        ['.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.'],
+        ['.', 'X', 'X', 'X', '.'],
+        ['.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.']
+      ]);
+
+    displayGame();
+    service.tick();
+
+    verifyGrid(
+      [
+        ['.', '.', '.', '.', '.'],
+        ['.', '.', 'X', '.', '.'],
+        ['.', '.', 'X', '.', '.'],
+        ['.', '.', 'X', '.', '.'],
+        ['.', '.', '.', '.', '.']
+      ]);
+
   });
 
   function displayGame() {
@@ -151,15 +174,19 @@ describe('GameService', () => {
   }
 
   function verifyGridIsEmpty() {
-    verifyGrid([]);
+    if (service.grid.rowCount() == 0) return;
+    service.grid.liveRows.forEach((row, rowNum) => {
+      row.forEach((col, colNum) => {
+        expect(service.grid.isLive(colNum, rowNum))
+          .withContext(`Expected column ${colNum}, Row ${rowNum} to be dead`)
+          .toBeFalse();
+      });
+    })
   }
 
   function verifyGrid(expectedGrid: string[][]) {
     verifyGridSize(expectedGrid);
-    if(expectedGrid.length > 0) {
-      console.log(' columns: ', expectedGrid[0].length)
-      console.log(expectedGrid[0])
-    }
+
     expectedGrid.forEach((row, rowNum) => {
       row.forEach((col, colNum) => {
         expect(service.grid.isLive(colNum, rowNum))
