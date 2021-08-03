@@ -12,6 +12,7 @@ export class GameengineComponent implements OnInit {
 
   rows: string[] = [];
   timerSubs: Subscription | undefined
+  generation = 0;
 
 
   constructor(private gameService: GameService) { }
@@ -44,6 +45,7 @@ export class GameengineComponent implements OnInit {
     this.timerSubs = timer(timeDuration).subscribe((data) => {
       of({token: Math.random()}).pipe(delay(200)).subscribe((apiData) => {
         this.gameService.tick();
+        this.generation++;
         this.showGrid();
         this.setTimerForGridUpdate();
       })
