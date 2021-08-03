@@ -12,13 +12,17 @@ export class GameengineComponent implements OnInit {
 
   rows: string[] = [];
   timerSubs: Subscription | undefined
-  generation = 0;
+  generation = 0
+  columnCount = 0
+  rowCount = 0
 
 
   constructor(private gameService: GameService) { }
 
   showGrid() {
-    this.rows = this.gameService.grid.asRows();
+    this.rows = this.gameService.grid.asRows()
+    this.columnCount = this.gameService.grid.columnCount()
+    this.rowCount = this.gameService.grid.rowCount()
   }
 
   ngOnInit(): void {
