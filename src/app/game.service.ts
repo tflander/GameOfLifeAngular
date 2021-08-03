@@ -44,6 +44,21 @@ export class GameService {
     this.grid.init(columns, rows);
   }
 
+  reInitRandom(columns: number, rows: number) {
+    this.reInitEmpty(columns, rows);
+
+    let currRow = this.grid.minRow ;
+    while (currRow <= this.grid.maxRow) {
+      for (let col = this.grid.minCol; col <= this.grid.maxCol; ++col) {
+        if (Math.random() < 0.5) {
+          this.grid.setLiveCell(col, currRow);
+        }
+      }
+      ++currRow;
+    }
+
+  }
+
   setGrid(gridForSetup: string[]) {
     gridForSetup.forEach((row, rowNum) => {
       for (let colNum = 0; colNum < row.length; colNum++) {

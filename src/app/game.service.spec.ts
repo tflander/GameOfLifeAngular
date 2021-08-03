@@ -23,6 +23,14 @@ describe('GameService Tests', () => {
     ])
   });
 
+  it('allows re-init to an empty sized grid size with random live cells', () => {
+    service.reInitRandom(10, 10);
+
+    expect(countLiveCells()).toBeGreaterThan(1);
+    expect(countLiveCells()).toBeLessThan(99);
+  });
+
+
   it('expands the border for a blinker', () => {
     service.reInitEmpty(5, 5)
 
@@ -69,7 +77,6 @@ describe('GameService Tests', () => {
         '.....',
       ]);
 
-    displayGame();
     service.tick();
 
     verifyGrid(
@@ -83,6 +90,16 @@ describe('GameService Tests', () => {
       ]);
 
   });
+
+  function countLiveCells() {
+    let count = 0;
+    let stringGrid = service.grid.asRows();
+    stringGrid.forEach(function (row) {
+      count += (row.match(/X/g) || []).length;
+      // console.log(`|${row}|`);
+    });
+    return count;
+  }
 
   function displayGame() {
     let stringGrid = service.grid.asRows();
