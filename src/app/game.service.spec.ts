@@ -16,7 +16,7 @@ describe('GameService', () => {
 
   it('kills isolated cells', () => {
 
-    setGrid(
+    service.setGrid(
       [
         'X.',
         '.X'
@@ -45,7 +45,7 @@ describe('GameService', () => {
     service.setLiveCell(1,0);
     service.setLiveCell(2,0);
 
-    setGrid(
+    service.setGrid(
       [
         'XXX'
       ]
@@ -134,7 +134,7 @@ describe('GameService', () => {
   it('shows a blinker', () => {
     service.reInitEmpty(5, 5)
 
-    setGrid(
+    service.setGrid(
       [
         '.....',
         '.....',
@@ -161,7 +161,7 @@ describe('GameService', () => {
   it('expands the border for a blinker', () => {
     service.reInitEmpty(5, 5)
 
-    setGrid(
+    service.setGrid(
       [
         '...',
         'XXX',
@@ -196,16 +196,6 @@ describe('GameService', () => {
     let stringGrid = service.grid.asRows();
     stringGrid.forEach(function (row) {
       console.log(`|${row}|`);
-    });
-  }
-
-  function setGrid(gridForSetup: string[]) {
-    gridForSetup.forEach((row, rowNum) => {
-      for (let colNum = 0; colNum < row.length; colNum++) {
-        if (row[colNum] === 'X') {
-          service.setLiveCell(colNum, rowNum);
-        }
-      }
     });
   }
 

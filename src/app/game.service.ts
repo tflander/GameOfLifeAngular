@@ -43,5 +43,16 @@ export class GameService {
   reInitEmpty(columns: number, rows: number) {
     this.grid.init(columns, rows);
   }
+
+  setGrid(gridForSetup: string[]) {
+    gridForSetup.forEach((row, rowNum) => {
+      for (let colNum = 0; colNum < row.length; colNum++) {
+        if (row[colNum] === 'X') {
+          this.grid.setLiveCell(colNum, rowNum);
+        }
+      }
+    });
+  }
+
 }
 
