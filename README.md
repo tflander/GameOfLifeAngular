@@ -1,4 +1,6 @@
-# Untitled
+# Conway's Game of Life
+
+This is an implementation of Conway's game of life using a potentially infinite grid.  The grid expands as necessary as the universe of live cells increase.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
 
