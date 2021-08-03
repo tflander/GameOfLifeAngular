@@ -21,10 +21,7 @@ export class GameengineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameService.setLiveCell(0,0);
-    this.gameService.setLiveCell(1,1);
-    this.gameService.setLiveCell(2,2);
-    this.gameService.setLiveCell(1,2);
+    this.gameService.reInitRandom(10,10);
 
     this.showGrid();
     this.setTimerForGridUpdate();
