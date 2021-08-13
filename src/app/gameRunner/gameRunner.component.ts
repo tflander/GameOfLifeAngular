@@ -4,11 +4,11 @@ import { timer, of, Subscription} from 'rxjs';
 import {delay} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-gameengine',
-  templateUrl: './gameengine.component.html',
-  styleUrls: ['./gameengine.component.css']
+  selector: 'app-gameRunner',
+  templateUrl: './gameRunner.component.html',
+  styleUrls: ['./gameRunner.component.css']
 })
-export class GameengineComponent implements OnInit {
+export class GameRunnerComponent implements OnInit {
 
   game: string = "";
   timerSubs: Subscription | undefined
